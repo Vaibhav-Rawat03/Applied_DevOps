@@ -17,7 +17,7 @@ app.use(session({
 const __filename=fileURLToPath(import.meta.url)
 const __dirname=path.dirname(__filename)
 
-mongoose.connect("mongodb://127.0.0.1:27017/To-Do-List" ).then(() =>{console.log("connected to database successfully")}).catch((error)=> {console.log("error in connecting to database" , error)})
+mongoose.connect("mongodb+srv://vaibhavrawat2003:mwZ9iLBRmbEYlROQ@cluster0.f2gih32.mongodb.net/todo?retryWrites=true&w=majority&appName=Cluster0").then(() =>{console.log("connected to database successfully")}).catch((error)=> {console.log("error in connecting to database" , error)})
 
 app.use(express.json())
 
