@@ -43,7 +43,7 @@
           </div>
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="login">Sign in</button>
         </form>
       </div>
     </div>
@@ -52,5 +52,40 @@
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function authenticatebuyer(){
+        const email =document.getElementById('form1Example13').value
+        const password =document.getElementById('form1Example23').value
+
+        if(email == "" || password == ""){
+            alert('Hacker bhay Hacker')
+            return
+        }
+        else{
+            const secure={
+                email:email,
+                password:password,
+            }
+
+            fetch('/confirm_login', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(secure)
+            }).then(response =>{
+                if(response.status == 200){
+                window.location.href='/Signup.html'
+            }
+            else{
+                response=>response.text()
+                alert("Wrong E-mail and/or password")
+            }
+        }).then(result=>console.log(result))
+        }
+    }
+
+    document.getElementById('login').addEventListener('click' , authenticatebuyer)
+</script>
 </body>
 </html>

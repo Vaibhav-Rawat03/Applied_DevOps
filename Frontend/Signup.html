@@ -61,41 +61,51 @@
 
 <script>
   function submitform(){
-    let name=document.getElementById("input_name").value;
-    let email=document.getElementById("form1Example13").value;
-    let password=document.getElementById("form1Example23").value;
+    let name = document.getElementById("input_name").value;
+    let email = document.getElementById("form1Example13").value;
+    let password = document.getElementById("form1Example23").value;
 
-    if(name.trim() === "" || email.trim() === "" || password.trim() === ""){
+    // Check if any field is empty
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
         alert("Please fill out all fields.");
         return;
     }
-    else {
-        const data={
-            name: name,
-            email: email,
-            password: password,
-        };
 
-        fetch('/submit', {
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response =>{
-            if(response.ok){
-                alert("User has been registered.");
-                // You can redirect the user to another page if needed
-                // window.location.href = "/success.html";
-            } else {
-                alert("Failed to register user. Please try again.");
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            alert("Failed to register user. Please try again.");
-        });
+    // Check if email contains "@" symbol
+    if (!email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return;
     }
+
+    // Proceed with form submission
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+    };
+
+    fetch('/register_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        if (response.ok) {
+            alert("User has been registered.");
+            // You can redirect the user to another page if needed
+            window.location.href = "/Login.html";
+        } else {
+            alert("Failed to register user. Please try again.");
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert("Failed to register user. Please try again.");
+    });
 }
+
+document.getElementById('signup').addEventListener('click', submitform);
+
 
 document.getElementById('signup').addEventListener('click', submitform);
 </script>
