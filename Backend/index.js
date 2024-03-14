@@ -20,6 +20,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', router)
 app.use(express.static(path.join(__dirname, '../Frontend')))
+app.use(express.static(path.join(__dirname, '../Frontend/css')))
+app.use(express.static(path.join(__dirname, '../Frontend/images')))
 
 app.listen(5000, () => {
     connectToDb()

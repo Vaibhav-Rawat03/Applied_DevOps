@@ -18,6 +18,7 @@ const __dirname = path.dirname(__filename)
 
 
 app.use(express.json())
+// app.use(express.static(path.join(__dirname, '../../../Frontend/images')))
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../Frontend/Login.html'))                    //Login
