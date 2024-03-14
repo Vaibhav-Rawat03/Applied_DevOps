@@ -7,11 +7,11 @@ import { connectToDb } from './src/utils/db.js'
 
 const app = express()
 
-app.use(session({
-    secret: 'secret-key',
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(session({
+//     secret: 'secret-key',
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

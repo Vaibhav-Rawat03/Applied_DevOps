@@ -95,7 +95,10 @@
             alert("User has been registered.");
             // You can redirect the user to another page if needed
             window.location.href = "/Login.html";
-        } else {
+        }else if(response.status ===400){
+            alert("User already Exists");
+        }
+         else {
             alert("Failed to register user. Please try again.");
         }
     }).catch(error => {
@@ -103,9 +106,6 @@
         alert("Failed to register user. Please try again.");
     });
 }
-
-document.getElementById('signup').addEventListener('click', submitform);
-
 
 document.getElementById('signup').addEventListener('click', submitform);
 </script>

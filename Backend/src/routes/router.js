@@ -7,11 +7,11 @@ import register from '../models/Schema.js';
 const app = express()
 const router = express.Router()
 
-app.use(session({
-    secret: 'secret-key',
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(session({
+//     secret: 'secret-key',
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -20,11 +20,15 @@ const __dirname = path.dirname(__filename)
 app.use(express.json())
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/Login.html'))                    //Login
+    res.sendFile(path.join(__dirname, '../../../Frontend/Login.html'))                    //Login
 })
 
 router.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/Signup.html'))                  //Signup page
+    res.sendFile(path.join(__dirname, '../../../Frontend/Signup.html'))                  //Signup page
+})
+
+router.get('/app', (req,res)=>{                                                          //App page
+    res.sendFile(path.join(__dirname,'../../../Frontend/index.html'))
 })
 
 router.post('/register_user', async (req, res) => {                                   //fetch of signup page
@@ -36,7 +40,7 @@ router.post('/register_user', async (req, res) => {                             
 
     if (existing_user) {
         console.log('email already exists')
-        res.send("Email already exists, Signin")
+        res.status(400).send("Email already exists, Signin")
         return
     }
 
@@ -48,37 +52,42 @@ router.post('/register_user', async (req, res) => {                             
 
     await newuserdata.save().then(() => console.log('User registered')).catch(() => console.log("error registering"))
 
-    res.send('Data received and user registered')
+    res.status(200).send('Data received and user registered')
 })
 
-router.post('/confirm_login', async (req, res) => {                                    //fetch of signin page
-    const authenticate = req.body
+router.post('/confirm_login', async(req,res) =>{                                      //fetch of signin page
+    const authenticate=req.body
+    console.log(authenticate)
+    
+    const check_email=authenticate.email
+    const verify_password=authenticate.password
+    
+    const verify_email = await register.findOne({email:check_email})
 
-    const check_email = authenticate.email
-    const verify_password = authenticate.password
-
-    const verify_email = await register.findOne({ email: check_email })
-
-
-    if (!verify_email) {
-        console.log("E-mail does not exist")
-        res.status(400).send("Wrong E-mail or Password")
+    if(!verify_email){
+        console.log("Not found email")
+        res.status(400).json("Wrong E-mail or Password")
         return
     }
-    else {
+    else{
 
-        if (verify_password === verify_email.password) {
-            req.session.email = verify_email
+    // const check_password=await bcrypt.compare(verify_password, verify_email.password)
 
-            res.status(200).send('Successful Login')
-            return
-        }
-        else {
-            console.log("Wrong E-mail or password")
-            res.status(400).send("Wrong e-mail or password")
-            return
-        }
-    }
+    // console.log(check_password)
+
+   if(verify_password === verify_email.password){
+
+    res.status(200).send('Successful Seller')
+    return 
+   }
+   else{
+    console.log("Wrong e-mail or password")
+    res.status(400).send("Wrong e-mail or password")
+    return
+   }
+}
 })
+
+
 
 export default router;
