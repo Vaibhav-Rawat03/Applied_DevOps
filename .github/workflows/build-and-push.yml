@@ -23,7 +23,10 @@ jobs:
         node-version: "18"
 
     - name: Navigate to project directory
-      run: cd Frontend/to-do-list
+      run: cd $GITHUB_WORKSPACE/Frontend/to-do-list
+
+    - name: List directory contents
+      run: ls -al
 
     - name: Install dependencies
       run: npm install
