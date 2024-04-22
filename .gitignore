@@ -1,6 +1,6 @@
 Backend/node_modules
 Backend/.env
-my-ssh-key.pem
+**/my-ssh-key.pem
 
 **/.terraform
 **/.terraform.*
