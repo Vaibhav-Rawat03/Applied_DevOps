@@ -1,2 +1,13 @@
 Backend/node_modules
 Backend/.env
+my-ssh-key.pem
+
+**/.terraform
+**/.terraform.*
+**/.terraform
+**/terraform.*
+**/**.tfstate*
+*.terraform*
+*.tfstate*
+mykey.*
+**/.vscode
