@@ -1,6 +1,7 @@
 Backend/node_modules
 Backend/.env
 **/my-ssh-key.pem
+**/next_task_key.pem
 
 **/.terraform
 **/.terraform.*

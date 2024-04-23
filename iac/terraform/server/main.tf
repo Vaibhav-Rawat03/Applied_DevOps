@@ -46,7 +46,7 @@ resource "aws_instance" "todo_list_instance" {
   ami                    = "ami-007020fd9c84e18c7"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.todo_list_security_group.id]
-  key_name               = "my-ssh-key"
+  key_name               = "next_task_key"
 
   root_block_device {
     volume_size = 30

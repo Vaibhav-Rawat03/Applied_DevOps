@@ -42,7 +42,7 @@
         enabled: yes
     - name: Copy file from local to remote
       ansible.builtin.copy:
-        src: /home/vaibhav/.ansible/run-container.sh
+        src: /home/sehnsucht/Github/College/Applied_DevOps/iac/ansible/run-container.sh
         dest: /home/ubuntu/run-container.sh
         remote_src: no
     - name: Remove carriage return characters from the script file
@@ -55,6 +55,8 @@
     - name: Print debug output
       debug:
         var: debug_output.stdout_lines
+    - name: Giving permission to docker socket
+      ansible.builtin.shell: sudo chmod 666 /var/run/docker.sock
     - name: Run the script on the remote host
       ansible.builtin.shell: /home/ubuntu/run-container.sh
       register: script_output
